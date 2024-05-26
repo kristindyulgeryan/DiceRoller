@@ -1,15 +1,15 @@
-function rollDice() {
-  const numOfDice = document.getElementById("numOfDice").value;
-  const diceResult = document.getElementById("diceResult");
-  const diceImages = document.getElementById("diceImages");
-  const values = [];
-  const images = [];
+function updateClock() {
+  const now = new Date();
+  let hours = now.getHours();
+  const meridiem = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  hours = hours.toString().padStart(2, 0);
+  const minutes = now.getMinutes().toString().padStart(2, 0);
+  const seconds = now.getSeconds().toString().padStart(2, 0);
+  const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
-  for (let i = 0; i < numOfDice; i++) {
-    const value = Math.floor(Math.random() * 6) + 1;
-    values.push(value);
-    images.push(`<img src="image/${value}.png" alt="Dice: ${value}">`);
-  }
-  diceResult.textContent = `dice: ${values.join(`, `)}`;
-  diceImages.innerHTML = images.join("");
+  document.getElementById("clock").textContent = timeString;
 }
+
+updateClock();
+setInterval(updateClock, 1000);
